@@ -13,7 +13,7 @@ int sum_numbers(int);
 
 int main(void)
 {
-    int initial_number = 5;
+    int initial_number = 42;
     int result = sum_numbers(initial_number);
 
     printf("sum_numbers(%d) returns %d\n", initial_number, result);
