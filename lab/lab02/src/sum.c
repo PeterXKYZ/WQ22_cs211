@@ -23,7 +23,10 @@ int main(void)
 
 int sum_numbers(int num)
 {
-    // TODO: FIX ME
-    return -1;
+    int sum = 0;
+    for (int i = 1; i <= num; ++i) {
+        sum += i;
+    }
+    return sum;
 }
 
