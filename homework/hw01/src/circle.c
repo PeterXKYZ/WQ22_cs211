@@ -14,10 +14,18 @@ bool valid_circle(struct circle c)
 
 struct circle read_circle(void)
 {
-    //
-    // TODO: replace with your code:
-    //
-    return (struct circle) {0, 0, -1};
+    double x = 0;
+    double y = 0;
+    double radius = -1;
+
+    int num = scanf("%f, %f, %f", &x, &y, &radius);
+    printf("num = %d\n", num);
+    if (num == 3) {
+        return (struct circle) {x, y, radius};
+    }
+    else {
+        return (struct circle) {0, 0, -1};
+    } 
 }
 
 bool overlapped_circles(struct circle c1, struct circle c2)
