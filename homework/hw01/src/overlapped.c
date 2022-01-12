@@ -11,7 +11,7 @@
 
 int main(void)
 {
-    //
-    // TODO: your code here
-    //
+    struct circle test = {1, 1, -1};
+    bool validity = valid_circle(test);
+    printf("%s", validity);
 }

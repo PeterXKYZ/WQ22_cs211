@@ -5,9 +5,10 @@
 
 bool valid_circle(struct circle c)
 {
-    //
-    // TODO: replace with your code:
-    //
+    if (c.radius > 0) {
+        return true;
+    }
+
     return false;
 }
 
