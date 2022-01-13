@@ -11,7 +11,26 @@
 
 int main(void)
 {
-    struct circle c = read_circle();
-    bool valid = valid_circle(c);
-    printf("%d", valid);
+    struct circle target = read_circle();
+
+    if (valid_circle(target) == false) {
+        return 1;
+    }
+
+    while (true) {
+        struct circle candidate = read_circle();
+        if (valid_circle(candidate) == false) {
+            break;
+        }
+
+        bool ovla = overlapped_circles(target, candidate);
+        if (ovla == true) {
+            printf(OVERLAPPED_MSG);
+        }
+        else {
+            printf(NOT_OVERLAPPED_MSG);
+        }
+    }
+    
+    return 0;
 }
