@@ -57,7 +57,10 @@ static void test_charseq_length(void)
     CHECK_SIZE( charseq_length("z-a"), 0);
     CHECK_SIZE( charseq_length("-abc-"), 5);
     CHECK_SIZE( charseq_length("hello\n"), 6);
-    // CHECK_SIZE( charseq_length("hello\\n"), 7);
+    CHECK_SIZE( charseq_length("hello\\n"), 6);
+    CHECK_SIZE( charseq_length("hello\\\n"), 6);
+    CHECK_SIZE( charseq_length("hello\\\\n"), 7);
+    // CHECK_SIZE( charseq_length("X-\n"), 6) ?;
 }
 
 
@@ -69,6 +72,21 @@ static void test_expand_charseq(void)
 {
     check_expand( "abc", "abc" );
     check_expand( "a-e", "abcde" );
+
+    check_expand( "a-a", "a");
+    check_expand( "a-cd-f", "abcdef");
+    check_expand( "a-c-f", "abc-f");
+    check_expand( "---", "-");
+    check_expand( "abc-", "abc-");
+    check_expand( "-abc", "-abc");
+    check_expand( "z-a", "");
+    check_expand( "-abc-", "-abc-");
+    check_expand( "\\t", "\t");
+    check_expand( "\\q", "q");
+    check_expand( "\\\\", "\\");
+    check_expand( "\\-\\", "\\");
+    check_expand( "\\\n", "\n");
+    check_expand( "\\\\n", "\\n");
 
     //
     // TODO: Add more tests for expand_charseq() here
