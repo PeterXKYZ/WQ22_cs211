@@ -49,9 +49,15 @@ static void test_charseq_length(void)
     CHECK_SIZE( charseq_length("abc"), 3 );
     CHECK_SIZE( charseq_length("a-z"), 26 );
 
-    //
-    // TODO: Add more tests for charseq_length() here
-    //
+    CHECK_SIZE( charseq_length("a-a"), 1);
+    CHECK_SIZE( charseq_length("a-cd-f"), 6); // two ranges
+    CHECK_SIZE( charseq_length("a-c-f"), 5);
+    CHECK_SIZE( charseq_length("-abc"), 4);
+    CHECK_SIZE( charseq_length("abc-"), 4);
+    CHECK_SIZE( charseq_length("z-a"), 0);
+    CHECK_SIZE( charseq_length("-abc-"), 5);
+    CHECK_SIZE( charseq_length("hello\n"), 6);
+    // CHECK_SIZE( charseq_length("hello\\n"), 7);
 }
 
 
