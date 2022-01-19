@@ -39,7 +39,7 @@ size_t charseq_length(const char* src)
                 result += end - start + 1;  // range length
             }
             src += 3;   // skip to char after end char of the range
-            continue;
+            continue;   // go back to the beginning of the loop
         }
 
         /* if the current char is '\\' (single backslash) 
@@ -50,8 +50,8 @@ size_t charseq_length(const char* src)
             continue;
         }
     
-        ++result;
-        ++src;
+        ++result; // if none of the conditions are met, add one to count
+        ++src; // go to the next position
     }
 
     return result;
@@ -88,14 +88,15 @@ char* expand_charseq(const char* src)
 
 char* expand_charseq(const char* src)
 {
+    // allocate memory based on length of the expanded src + null terminator \0
     char* result = malloc(charseq_length(src) + 1);
     if (!result) {
         return NULL;
     }
 
-    char* dst = result;
+    char* dst = result; // pointer to beginning of the result array
 
-    while(*src != '\0') {
+    while(*src != '\0') { // if current char is not \0, do loop
         if (*(src + 1) == '-' && *(src + 2) != '\0') { 
             int start = *src;      // start char of the range 
             int end = *(src + 2);  // end char of the range  
