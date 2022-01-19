@@ -13,7 +13,7 @@
 
 int main(int argc, char* argv[])
 {
-    if (argc != 3) {
+    if (argc != 3) {    // mismatched arguments
         fprintf(stderr, USAGE_MESSAGE, argv[0]);
         return 1;
     }
@@ -21,14 +21,14 @@ int main(int argc, char* argv[])
     char* from = expand_charseq(argv[1]);
     char* to   = expand_charseq(argv[2]);
 
-    if (from == NULL || to == NULL) {
+    if (from == NULL || to == NULL) {   // if either pointer is NULL, error
         fprintf(stderr, OOM_MESSAGE, argv[0]);
         return 10;
     }
 
-    if (strlen(from) != strlen(to)) {
+    if (strlen(from) != strlen(to)) {   // if from and to have different lengths, error
         fprintf(stderr, LENGTH_MESSAGE, argv[0]);
-        free(from);
+        free(from);     // don't forget to free from and to in this branch
         free(to);
         return 2;
     }

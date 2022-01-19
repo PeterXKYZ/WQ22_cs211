@@ -97,34 +97,38 @@ char* expand_charseq(const char* src)
     char* dst = result; // pointer to beginning of the result array
 
     while(*src != '\0') { // if current char is not \0, do loop
+
+        // if the next char is '-', it is a range
+        // if the current char is '-', it is the literal character
+        // if '\0' follows '-', then treat '-' as a literal character
         if (*(src + 1) == '-' && *(src + 2) != '\0') { 
             int start = *src;      // start char of the range 
             int end = *(src + 2);  // end char of the range  
 
             if (start <= end) { // valid range, otherwise empty range
-                while (start <= end) {
-                    *dst = (char)start;
-                    ++dst;
-                    ++start;
+                while (start <= end) {  // expand range as a list of chars
+                    *dst = (char)start; // set start as a char as the value of *dst
+                    ++dst;      // go to next location
+                    ++start;    // next char
                 }
             }
-            src += 3;
+            src += 3;   // skip to char after range
             continue;
         }
 
         if (*src == '\\' && *(src + 1) != '\0') {
-            *dst = interpret_escape(*(src + 1));
-            ++dst;
-            src += 2; // skip to char after escape sequence
+            *dst = interpret_escape(*(src + 1));    // returns the correct escape character
+            ++dst;      // go to next location (escape characters have length 1)
+            src += 2;   // skip to char after escape sequence
             continue;
         }
 
-        *dst = *src;
-        ++dst;
-        ++src;
+        *dst = *src;    // copies char from *src to *dst
+        ++dst;          // next location
+        ++src;          // next location
     }
 
-    *dst = '\0';
+    *dst = '\0';        // set the last char as null terminator
 
     return result;
 }
@@ -134,25 +138,18 @@ char translate_char(char c, const char* from, const char* to)
 {
     int i = 0;
 
-    for ( ; from[i] != c; ++i) {
-        if (from[i] == '\0') {
-            return c;
+    for ( ; from[i] != c; ++i) {    // if current char of from does not match c, do loop
+        if (from[i] == '\0') {      // if current char of from is \0,
+            return c;               // found no match, return c as is
         }
     }
 
-    return to[i];
+    return to[i];   // if current char of from does match c, return current char of to
 }
 
 void translate(char* s, const char* from, const char* to) 
 {
-    for (int i = 0; s[i] != '\0'; ++i) {
+    for (int i = 0; s[i] != '\0'; ++i) {    // calls translate_char for every char of s
         s[i] = translate_char(s[i], from, to);
     }
 }
-
-/* void main(void) {
-    char str1[10];
-    scanf("%s", str1);
-    
-    printf("%s", expand_charseq(str1));
-} */
