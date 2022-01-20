@@ -1,0 +1,54 @@
+stack: local variables
+heap: allocated memory
+static: global variables, static function, string literals
+text: program code
+
+void* malloc(size_t size_in_bytes)
+
+requests "size" bytes of memory from the heap
+returns a pointer to this new object
+    -not associated with any variables 
+
+void* is a special pointer type 
+    -a pointer to anything
+    -must be casst into the desired type before dereferencing
+    
+    int* myptr = (int*) malloc (sizeof(int)) 
+    the casting    ^    is optional
+
+if malloc() fails, the return value is NULL 
+always need to check the return value of malloc() before using it
+
+------------------------------------------------------------------
+
+void free(void* ptr)
+
+returns the memory at the pointer to the heap
+only works if the memory address was given by malloc()
+
+must be called when you are finished with the memory, or else you have a "memory leak"
+
+two common errors:
+    -freeing a pointer not created with malloc()
+    -freeing a pointer twice
+
+**** why use malloc()? when your function needs to return an array that wasn't given in arguments ****
+
+------------------------alloc family----------------------------------
+
+void* calloc(size_t num, size_t size)
+
+allocates a block of memory for "num" elements, each of "size" bytes
+zeros each element in the memory
+
+--------------------------------------------------------------------
+
+use sizeof() to find the memory size of various types
+
+---------------------------ownership--------------------------------
+if all malloc()'d memory must be free()'d later 
+
+there must be some agreement on which function can free it
+
+owner: responsible for deallocating 
+borrower: may access or modify, but can't deallocate
