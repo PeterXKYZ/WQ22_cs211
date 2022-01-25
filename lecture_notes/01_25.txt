@@ -1,0 +1,59 @@
+FILE* fopen(const char* filename, const char* mode);
+
+filename is the string path for the file
+mode specifies what you intend to do
+    "w" : write
+    "r" : read
+    "a" : append
+
+-------------------------------------------------------
+
+FILE* : pointer type for an object used to interact with the file
+-handle to the file
+
+FILE* keeps track of where you are in the file
+to reset, we can close the file, fseek, or rewind
+
+-------------------------------------------------------
+
+size_t fread(void* ptr, size_t size, size_t count, FILE* stream);
+
+-ptr is the location to store the read data
+-stream is the file pointer
+-size is the number of bytes for each element in the array
+-count is the number of elements to read
+-returns the number of elements actually read
+
+
+size_t fwrite(const void* ptr, size_t size, size_t count, FILE* stream);
+
+-const void* ptr : just signifies that ptr will not be modified
+
+
+int fseek(FILE* stream, long int offset, int origin);
+
+
+int ftell();
+
+
+int fclose(FILE* stream);
+
+-returns 0 on success
+-error to keep using file descriptor after it is closed
+
+
+stdin
+stdout
+stderr
+
+standard files that interacts with the terminal in shell
+
+printf() just calls fprintf() on stdout
+
+we can use stdin/stdout to chain programs or redirect output into a file
+
+PROGRAM > file 
+-takes whatever is in stdout and write it in a new file
+
+PROGRAM < file 
+-takes whatever is in file and write it in stdin for the program
