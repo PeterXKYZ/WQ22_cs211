@@ -68,6 +68,7 @@ static void test_2_candidates(void)
     CHECK_SIZE( vc_lookup(vc, "bob"), 1 );
     CHECK_SIZE( vc_total(vc), 3 );
 
+    vc_print(vc);
     vc_destroy(vc);
 }
 

@@ -230,8 +230,13 @@ const char* vc_min(vote_count_t vc)
 
 void vc_print(vote_count_t vc)
 {
-    //
-    // TODO: your code here
-    //
+    vote_count_t vc_helper = vc;
+    for (int i = 0; i < MAX_CANDIDATES &&
+        vc_helper->candidate != NULL; ++i) {
+        
+        fprintf(stdout,"%-20s %9d\n", vc_helper->candidate, vc_helper->count);
+        ++vc_helper;
+    }
+    
 }
 
